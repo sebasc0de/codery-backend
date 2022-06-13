@@ -3,16 +3,16 @@ Codery crea una conexion entre negocios que buscan mejorar la experiencia de com
 
 ##### PASOS DEL LADO CLIENTE:
 
-1. Ingresar mediante correo electronico
-2. Ingresar datos del pedido
-3. Ingresar datos de envio
-4. Generar enlace para el negocio
+1. Ingresar mediante correo electronico (USER EMAIL REGISTER)
+2. Ingresar datos del pedido (ORDER DATA ON REACT STATE)
+3. Ingresar datos de envio (SHIPPING DATA ON REACT STATE)
+4. Generar enlace para el negocio (CLICK AND SHOW LINK TO COPY ON CLIPBOARD)
 
 ##### PASOS DEL LADO NEGOCIO:
 
-1. Ingresa al enlace compartido por el cliente
+1. Ingresa al enlace compartido por el cliente (ENTER ON ORDER LINK)
 2. Debe aceptar los datos del pedido y envio con un solo click para continuar
-3. Poner un precio al pedido (OPCIONAL)
+3. Poner un precio al pedido (ON CHANGE PRICE AND CLICK SAVE, SOCKET IO EXECUTED ON 'price-changed')
 4. Cuando el pedido esta en camino, puede indicarlo con un solo click para que el cliente reciba la notificacion.
 
 ##### FEATURES DEL LADO CLIENTE
@@ -24,3 +24,5 @@ Codery crea una conexion entre negocios que buscan mejorar la experiencia de com
 ##### FEATURES DEL LADO NEGOCIO
 
 1. Guardar la cuenta con una contraseña
+
+2. Codigo de seguimiento
