@@ -1,8 +1,4 @@
-import { config } from "dotenv";
-import { Server } from "../models/server";
-
-// Enviroment variables
-config();
+import Server from "../models/server";
 
 // Server start
 const server = new Server();
