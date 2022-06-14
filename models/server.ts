@@ -1,5 +1,6 @@
 import cors from "cors";
 import express, { application } from "express";
+import { connectMongoDB } from "../src/db";
 
 export default class Server {
   app = application;
@@ -8,6 +9,9 @@ export default class Server {
   constructor() {
     this.app = express();
     this.port = 8080;
+
+    // Connect to DB
+    connectMongoDB();
 
     // Middlewares
     this.middlewares();
