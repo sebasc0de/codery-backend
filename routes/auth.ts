@@ -1,9 +1,14 @@
-import { Request, Response, Router } from "express";
+import { Router } from "express";
+import { check } from "express-validator";
+import { loginController } from "../controllers/index";
+import { fieldValidator } from "../middlewares/fieldValidator";
 
 const router = Router();
 
-router.post("/", (_: Request, res: Response) => {
-  res.send("hello");
-});
+router.post(
+  "/",
+  [check("email", "Debes ingresar un email valido").isEmail(), fieldValidator],
+  loginController
+);
 
 module.exports = router;

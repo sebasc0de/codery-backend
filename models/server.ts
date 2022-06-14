@@ -19,7 +19,7 @@ export default class Server {
   }
 
   middlewares() {
-    this.app.use(cors);
+    this.app.use(cors());
     this.app.use(express.json());
   }
 
@@ -29,8 +29,6 @@ export default class Server {
   }
 
   listen() {
-    this.app.listen(this.port, () => {
-      console.log("Listening on port 8080");
-    });
+    this.app.listen(this.port);
   }
 }
