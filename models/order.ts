@@ -1,5 +1,4 @@
 import { Schema, model, Model } from "mongoose";
-import Order from "../interfaces/Order";
 
 const OrderSchema = new Schema<Order, Model<Order>>({
   items: [{ name: String, quantity: Number, price: Number }],

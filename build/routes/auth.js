@@ -2,7 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.router = void 0;
 const express_1 = require("express");
+const express_validator_1 = require("express-validator");
+const index_1 = require("../controllers/index");
+const fieldValidator_1 = require("../middlewares/fieldValidator");
 exports.router = (0, express_1.Router)();
-exports.router.post("/", (_, res) => {
-    res.send("hello");
-});
+exports.router.post("/login", [(0, express_validator_1.check)("email", "Debes ingresar un email valido").isEmail(), fieldValidator_1.fieldValidator], index_1.loginController);
+exports.router.post("/register", [(0, express_validator_1.check)("email", "Debes ingresar un email valido").isEmail(), fieldValidator_1.fieldValidator], index_1.addUser);

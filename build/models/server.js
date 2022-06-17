@@ -26,15 +26,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Server = void 0;
 const cors_1 = __importDefault(require("cors"));
 const express_1 = __importStar(require("express"));
 const index_1 = require("../routes/index");
+const db_1 = require("../src/db");
 class Server {
     constructor() {
         this.app = express_1.application;
         this.app = (0, express_1.default)();
         this.port = 8080;
+        // Connect to DB
+        (0, db_1.connectMongoDB)();
         // Middlewares
         this.middlewares();
         // Routes
@@ -42,7 +44,7 @@ class Server {
         // Sockets
     }
     middlewares() {
-        this.app.use(cors_1.default);
+        this.app.use((0, cors_1.default)());
         this.app.use(express_1.default.json());
     }
     routes() {
@@ -50,9 +52,7 @@ class Server {
         this.app.use("/order", index_1.OrderRouter);
     }
     listen() {
-        this.app.listen(this.port, () => {
-            console.log("Listening on port 8080");
-        });
+        this.app.listen(this.port);
     }
 }
-exports.Server = Server;
+exports.default = Server;

@@ -8,8 +8,8 @@ export const fieldValidator = (
 ) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    res.json(errors);
+    return res.json(errors);
   }
 
-  next();
+  return next();
 };

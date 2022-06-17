@@ -1,7 +1,7 @@
+import { User as UserProps } from "../src/types";
 import { Schema, model } from "mongoose";
-import User from "../interfaces/User";
 
-const UserSchema = new Schema<User>({
+const UserSchema = new Schema<UserProps>({
   archived: {
     type: Boolean,
     default: false,
@@ -12,10 +12,15 @@ const UserSchema = new Schema<User>({
     required: true,
     unique: true,
   },
+  password: {
+    type: String,
+    required: true,
+  },
   name: {
     type: String,
   },
   role: {
+    type: String,
     default: "FREE",
   },
 });
