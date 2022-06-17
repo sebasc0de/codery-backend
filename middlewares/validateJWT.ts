@@ -1,0 +1,31 @@
+import { JWTPayload } from "../helpers/generateJWT";
+import { NextFunction, Request, Response } from "express";
+import { User } from "../models/user";
+import { verify } from "jsonwebtoken";
+
+export const validateJWT = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const token = req.header("Auth") as string;
+
+  // If token does not exists
+  if (!token) res.status(404).json({ msg: "El token es invalido o expiro" });
+
+  // Verify token
+  const { uuid } = verify(token, "M0GUmB0_H4sHfory0u") as JWTPayload;
+
+  try {
+    // Check if user exists
+    const user = await User.findById(uuid);
+    if (user && user.archived)
+      return res
+        .status(401)
+        .json({ msg: "El usuario no puede realizar esta accion" });
+  } catch (err) {
+    console.log(err);
+  }
+
+  return next();
+};
