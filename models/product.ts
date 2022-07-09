@@ -16,6 +16,7 @@ const ProductSchema = new Schema<ProductProps>({
   user: {
     type: Schema.Types.ObjectId,
     ref: "User",
+    required: true,
   },
 });
 

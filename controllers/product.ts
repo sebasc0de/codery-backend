@@ -1,13 +1,21 @@
 import { Product } from "../models/product";
 import { Product as ProductProps } from "../interfaces/Product";
-import { Request, Response } from "express";
+import { Response } from "express";
+import { AuthInfoRequest } from "../interfaces/AuthInfoRequest";
+import { User } from "../models/user";
 
-export const createProduct = async (req: Request, res: Response) => {
+export const createProduct = async (req: AuthInfoRequest, res: Response) => {
   const { name, price, url }: ProductProps = req.body;
 
   try {
-    const loadProduct = await Product.create({ name, price, url });
-    res.send(loadProduct);
+    // Search user
+    const user = await User.findById(req.uuid);
+    const product = await Product.create({ name, price, url, user });
+
+    if (!product || user?.archived)
+      return res.status(404).json({ msg: "No se ha podido crear el producto" });
+
+    return res.json(product);
   } catch (err) {
     res.json(err);
   }

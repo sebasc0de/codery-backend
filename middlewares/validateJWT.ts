@@ -1,10 +1,11 @@
+import { AuthInfoRequest } from "../interfaces/AuthInfoRequest";
 import { JWTPayload } from "../helpers/generateJWT";
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Response } from "express";
 import { User } from "../models/user";
 import { verify } from "jsonwebtoken";
 
 export const validateJWT = async (
-  req: Request,
+  req: AuthInfoRequest,
   res: Response,
   next: NextFunction
 ) => {
@@ -23,7 +24,7 @@ export const validateJWT = async (
       return res
         .status(401)
         .json({ msg: "El usuario no puede realizar esta accion" });
-
+    req.uuid = uuid;
     next();
   } catch (err) {
     console.log(err);
