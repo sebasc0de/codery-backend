@@ -1,11 +1,11 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import { createProduct } from "../controllers/product";
+import { createProduct, getProducts } from "../controllers/product";
 import { validateJWT } from "../middlewares/validateJWT";
 
 export const router = Router();
 
-router.get("/");
+router.get("/", [validateJWT], getProducts);
 router.post(
   "/",
   [

@@ -10,6 +10,9 @@ const ProductSchema = new Schema<ProductProps>({
     type: Number,
     required: true,
   },
+  image: {
+    type: String,
+  },
   url: {
     type: String,
   },
@@ -19,5 +22,13 @@ const ProductSchema = new Schema<ProductProps>({
     required: true,
   },
 });
+
+ProductSchema.methods.toJSON = function () {
+  const { __v, _id, ...rest } = this.toObject();
+  return {
+    id: _id,
+    ...rest,
+  };
+};
 
 export const Product = model("Product", ProductSchema);
