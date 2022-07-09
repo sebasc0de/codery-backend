@@ -11,21 +11,21 @@ export const validateJWT = async (
   const token = req.header("Auth") as string;
 
   // If token does not exists
-  if (!token) res.status(404).json({ msg: "El token es invalido o expiro" });
+  if (!token)
+    return res.status(500).json({ msg: "El token es invalido o expiro" });
 
   // Verify token
-  const { uuid } = verify(token, "M0GUmB0_H4sHfory0u") as JWTPayload;
-
   try {
+    const { uuid } = verify(token, "M0GUmB0_H4sHfory0u") as JWTPayload;
     // Check if user exists
     const user = await User.findById(uuid);
-    if (user && user.archived)
+    if ((user && user.archived) || !user)
       return res
         .status(401)
         .json({ msg: "El usuario no puede realizar esta accion" });
+
+    next();
   } catch (err) {
     console.log(err);
   }
-
-  return next();
 };

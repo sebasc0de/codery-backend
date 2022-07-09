@@ -1,4 +1,4 @@
-import { User as UserProps } from "../src/types";
+import { User as UserProps } from "../interfaces/User";
 import { Schema, model } from "mongoose";
 
 const UserSchema = new Schema<UserProps>({
@@ -6,7 +6,10 @@ const UserSchema = new Schema<UserProps>({
     type: Boolean,
     default: false,
   },
-  avatar: String,
+  avatar: {
+    type: String,
+    default: "",
+  },
   email: {
     type: String,
     required: true,
@@ -19,7 +22,7 @@ const UserSchema = new Schema<UserProps>({
   name: {
     type: String,
   },
-  role: {
+  suscription: {
     type: String,
     default: "FREE",
   },

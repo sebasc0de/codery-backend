@@ -1,6 +1,6 @@
 import cors from "cors";
 import express, { application } from "express";
-import { AuthRouter, OrderRouter } from "../routes/index";
+import { AuthRouter, OrderRouter, ProductRouter } from "../routes/index";
 import { connectMongoDB } from "../src/db";
 
 export default class Server {
@@ -31,6 +31,7 @@ export default class Server {
   routes() {
     this.app.use("/auth", AuthRouter);
     this.app.use("/order", OrderRouter);
+    this.app.use("/product", ProductRouter);
   }
 
   listen() {

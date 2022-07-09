@@ -1,18 +1,19 @@
-import { Schema, model, Model } from "mongoose";
+import { Schema, model } from "mongoose";
+import { Order as OrderProps } from "../interfaces/Order";
 
-const OrderSchema = new Schema<Order, Model<Order>>({
+const OrderSchema = new Schema<OrderProps>({
   items: [{ name: String, quantity: Number, price: Number }],
   shippingData: {
     adress: {
+      type: String,
       required: true,
     },
     city: {
+      type: String,
       required: true,
     },
-    province: {
-      required: true,
-    },
-    zipCode: {
+    phone: {
+      type: String,
       required: true,
     },
     notes: String,
@@ -20,6 +21,10 @@ const OrderSchema = new Schema<Order, Model<Order>>({
   user: {
     type: Schema.Types.ObjectId,
     ref: "User",
+  },
+  delivered: {
+    type: Boolean,
+    default: false,
   },
 });
 
