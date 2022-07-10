@@ -22,12 +22,22 @@ export const createProduct = async (req: AuthInfoRequest, res: Response) => {
 };
 
 export const getProducts = async (req: AuthInfoRequest, res: Response) => {
-  // Params
-  const { name } = req.query;
-
   // Search user
   const user = await User.findById(req.uuid);
-  const products = await Product.find().and([{ name }]).where("user", user);
+  const products = await Product.find().where("user", user);
+
+  res.json(products);
+};
+
+export const searchProducts = async (req: AuthInfoRequest, res: Response) => {
+  const { name } = req.query;
+
+  const regExp = new RegExp(`${name}`, "i");
+
+  const user = await User.findById(req.uuid);
+  const products = await Product.find()
+    .and([{ name: regExp }])
+    .where("user", user);
 
   res.json(products);
 };
