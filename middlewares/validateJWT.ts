@@ -17,7 +17,7 @@ export const validateJWT = async (
 
   // Verify token
   try {
-    const { uuid } = verify(token, "M0GUmB0_H4sHfory0u") as JWTPayload;
+    const { uuid } = verify(token, process.env.JWT_HASH || "") as JWTPayload;
     // Check if user exists
     const user = await User.findById(uuid);
     if ((user && user.archived) || !user)
