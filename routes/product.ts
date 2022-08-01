@@ -2,6 +2,7 @@ import { Router } from "express";
 import { check } from "express-validator";
 import {
   createProduct,
+  deleteProductById,
   getProducts,
   searchProducts,
 } from "../controllers/product";
@@ -13,7 +14,7 @@ export const router = Router();
 router.get("/", [validateJWT], getProducts);
 
 // Search products
-router.get("/search", [validateJWT], searchProducts);
+router.get("/search", searchProducts);
 
 // Create new product
 router.post(
@@ -26,3 +27,6 @@ router.post(
   ],
   createProduct
 );
+
+// Delete product by id
+router.delete("/delete/:id", deleteProductById);

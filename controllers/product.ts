@@ -30,14 +30,32 @@ export const getProducts = async (req: AuthInfoRequest, res: Response) => {
 };
 
 export const searchProducts = async (req: AuthInfoRequest, res: Response) => {
-  const { name } = req.query;
+  const { productName, restaurant } = req.query;
 
-  const regExp = new RegExp(`${name}`, "i");
+  try {
+    const regExp = new RegExp(`${productName}`, "i");
 
-  const user = await User.findById(req.uuid);
-  const products = await Product.find()
-    .and([{ name: regExp }])
-    .where("user", user);
+    const user = await User.findOne({ name: restaurant });
+    const products = await Product.find()
+      .and([{ name: regExp }])
+      .where("user", user);
 
-  res.json(products);
+    res.json(products);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const deleteProductById = async (
+  req: AuthInfoRequest,
+  res: Response
+) => {
+  const { id } = req.params;
+  try {
+    const deleteProduct = await Product.findByIdAndDelete(id);
+    console.log(deleteProduct);
+    res.json({ msg: `Product deleted on ${id}` });
+  } catch (err) {
+    console.log(err);
+  }
 };

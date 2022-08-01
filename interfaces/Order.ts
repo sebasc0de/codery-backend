@@ -6,6 +6,7 @@ export type Order = {
   items: Types.DocumentArray<OrderItem>;
   user: User;
   delivered: boolean;
+  paidOut: boolean;
 };
 
 export type OrderItem = {

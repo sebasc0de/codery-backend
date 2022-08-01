@@ -21,6 +21,8 @@ const UserSchema = new Schema<UserProps>({
   },
   name: {
     type: String,
+    required: [true, "El nombre del restaurante es requerido"],
+    unique: true,
   },
   suscription: {
     type: String,

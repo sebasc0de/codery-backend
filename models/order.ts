@@ -4,6 +4,10 @@ import { Order as OrderProps } from "../interfaces/Order";
 const OrderSchema = new Schema<OrderProps>({
   items: [{ name: String, quantity: Number, price: Number }],
   shippingData: {
+    name: {
+      type: String,
+      required: true,
+    },
     adress: {
       type: String,
       required: true,
@@ -23,6 +27,10 @@ const OrderSchema = new Schema<OrderProps>({
     ref: "User",
   },
   delivered: {
+    type: Boolean,
+    default: false,
+  },
+  paidOut: {
     type: Boolean,
     default: false,
   },
