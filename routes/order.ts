@@ -1,11 +1,9 @@
-import { Request, Response, Router } from "express";
+import { Router } from "express";
 import { createOrder } from "../controllers";
-import { validateJWT } from "../middlewares/validateJWT";
+import { getOrderById } from "../controllers/order";
 
 export const router = Router();
 
-router.get("/", (_: Request, res: Response) => {
-  res.send("helloo, i am order");
-});
+router.get("/:id", getOrderById);
 
-router.post("/create", validateJWT, createOrder);
+router.post("/create", createOrder);

@@ -1,18 +1,28 @@
-import { Response } from "express";
 import { AuthInfoRequest } from "../interfaces/AuthInfoRequest";
-import { Order as OrderProps } from "../interfaces/Order";
 import { Order } from "../models/order";
+import { Order as OrderProps } from "../interfaces/Order";
+import { Response } from "express";
 import { User } from "../models/user";
 
 export const createOrder = async (req: AuthInfoRequest, res: Response) => {
   const { items, shippingData }: OrderProps = req.body;
+  const { restaurantName } = req.query;
+
   try {
-    const user = await User.findById(req.uuid);
+    const user = await User.findOne({ name: restaurantName });
     const newOrder = await Order.create({
       items,
       shippingData,
       user,
     });
     res.json(newOrder);
+  } catch (err) {}
+};
+
+export const getOrderById = async (req: AuthInfoRequest, res: Response) => {
+  const { id } = req.params;
+  try {
+    const order = await Order.findById(id);
+    res.json(order);
   } catch (err) {}
 };
