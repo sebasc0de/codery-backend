@@ -2,7 +2,15 @@ import { Schema, model } from "mongoose";
 import { Order as OrderProps } from "../interfaces/Order";
 
 const OrderSchema = new Schema<OrderProps>({
-  items: [{ name: String, quantity: Number, price: Number, itemTotal: Number }],
+  items: [
+    {
+      name: String,
+      quantity: Number,
+      image: String,
+      price: Number,
+      itemTotal: Number,
+    },
+  ],
   shippingData: {
     name: {
       type: String,

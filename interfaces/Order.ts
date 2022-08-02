@@ -13,6 +13,7 @@ export type Order = {
 export type OrderItem = {
   productName: string;
   quantity: number;
+  image?: string;
   itemTotal: number;
   price?: number;
 };
