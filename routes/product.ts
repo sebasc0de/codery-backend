@@ -6,6 +6,7 @@ import {
   getProducts,
   searchProducts,
 } from "../controllers/product";
+import { fieldValidator } from "../middlewares/fieldValidator";
 import { validateJWT } from "../middlewares/validateJWT";
 
 export const router = Router();
@@ -21,12 +22,13 @@ router.post(
   "/",
   [
     validateJWT,
-    check("name", "El nombre es requerido").isEmpty(),
-    check("price", "El precio es requerido").isEmpty(),
+    check("name", "El nombre es requerido").notEmpty(),
+    check("price", "El precio es requerido").notEmpty(),
     check("price", "El precio debe ser un numero").isNumeric(),
+    fieldValidator,
   ],
   createProduct
 );
 
 // Delete product by id
-router.delete("/delete/:id", deleteProductById);
+router.delete("/delete/:id", validateJWT, deleteProductById);

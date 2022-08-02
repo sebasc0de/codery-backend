@@ -1,5 +1,5 @@
 export type Shipping = {
-  adress: string;
+  address: string;
   phone: string;
   city: string;
   notes: string;

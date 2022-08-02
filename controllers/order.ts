@@ -5,7 +5,7 @@ import { Response } from "express";
 import { User } from "../models/user";
 
 export const createOrder = async (req: AuthInfoRequest, res: Response) => {
-  const { items, shippingData }: OrderProps = req.body;
+  const { items, shippingData, orderTotal }: OrderProps = req.body;
   const { restaurantName } = req.query;
 
   try {
@@ -13,10 +13,13 @@ export const createOrder = async (req: AuthInfoRequest, res: Response) => {
     const newOrder = await Order.create({
       items,
       shippingData,
+      orderTotal,
       user,
     });
     res.json(newOrder);
-  } catch (err) {}
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export const getOrderById = async (req: AuthInfoRequest, res: Response) => {

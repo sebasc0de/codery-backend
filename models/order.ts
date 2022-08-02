@@ -2,13 +2,13 @@ import { Schema, model } from "mongoose";
 import { Order as OrderProps } from "../interfaces/Order";
 
 const OrderSchema = new Schema<OrderProps>({
-  items: [{ name: String, quantity: Number, price: Number }],
+  items: [{ name: String, quantity: Number, price: Number, itemTotal: Number }],
   shippingData: {
     name: {
       type: String,
       required: true,
     },
-    adress: {
+    address: {
       type: String,
       required: true,
     },
@@ -25,6 +25,10 @@ const OrderSchema = new Schema<OrderProps>({
   user: {
     type: Schema.Types.ObjectId,
     ref: "User",
+  },
+  orderTotal: {
+    type: Number,
+    required: [true, "La suma total de la orden es requerida"],
   },
   delivered: {
     type: Boolean,

@@ -16,9 +16,7 @@ export const createProduct = async (req: AuthInfoRequest, res: Response) => {
       return res.status(404).json({ msg: "No se ha podido crear el producto" });
 
     return res.json(product);
-  } catch (err) {
-    res.json(err);
-  }
+  } catch (err) {}
 };
 
 export const getProducts = async (req: AuthInfoRequest, res: Response) => {
